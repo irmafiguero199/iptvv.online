@@ -1,0 +1,45 @@
+# ═══════════════════════════════════════════════════════
+# NorthStream IPTV — Dockerfile
+# Optimized for Google Cloud Run (fast cold starts)
+# Uses multi-stage build for minimal image size
+# ═══════════════════════════════════════════════════════
+
+# Stage 1: Build (Node.js for any build tooling)
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production 2>/dev/null || echo "No package.json, skipping"
+COPY . .
+
+# Stage 2: Production (tiny Nginx image for static site)
+FROM nginx:1.25-alpine AS production
+
+# Remove default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy optimized nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy site files
+COPY --from=builder /app/public /usr/share/nginx/html
+# OR if no build step:
+COPY index.html /usr/share/nginx/html/
+COPY robots.txt /usr/share/nginx/html/
+COPY sitemap.xml /usr/share/nginx/html/
+
+# Create health check endpoint
+RUN echo "OK" > /usr/share/nginx/html/health
+
+# Cloud Run uses port 8080
+EXPOSE 8080
+
+# Non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN chown -R appuser:appgroup /usr/share/nginx/html && \
+    chown -R appuser:appgroup /var/cache/nginx && \
+    chown -R appuser:appgroup /var/log/nginx && \
+    touch /var/run/nginx.pid && \
+    chown -R appuser:appgroup /var/run/nginx.pid
+USER appuser
+
+CMD ["nginx", "-g", "daemon off;"]

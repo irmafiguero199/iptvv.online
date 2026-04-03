@@ -1,0 +1,107 @@
+# ═══════════════════════════════════════════════════════
+# iptvv.online IPTV Canada — robots.txt
+# Allows all major search engines + AI crawlers
+# Disallows admin/checkout/internal paths
+# ═══════════════════════════════════════════════════════
+
+# ── GOOGLE ──────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Google-InspectionTool
+Allow: /
+
+# ── BING / MICROSOFT ────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: msnbot
+Allow: /
+
+# ── AI CRAWLERS (critical for AIO 2026) ─────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# ── OTHER SEARCH ENGINES ────────────────────────────────
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: ia_archiver
+Allow: /
+
+# ── BLOCK SCRAPERS / BAD BOTS ───────────────────────────
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# ── GLOBAL RULES ────────────────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /account/
+Disallow: /api/
+Disallow: /wp-admin/
+Disallow: /?add-to-cart=
+Disallow: /cart/
+Disallow: /my-account/
+Disallow: /thank-you/
+Disallow: /*.json$
+Disallow: /cdn-cgi/
+
+# ── SITEMAPS ────────────────────────────────────────────
+Sitemap: https://northstreamiptv.ca/sitemap.xml
+Sitemap: https://northstreamiptv.ca/sitemap-posts.xml
+Sitemap: https://northstreamiptv.ca/sitemap-pages.xml
+
+# Host
+Host: https://northstreamiptv.ca
