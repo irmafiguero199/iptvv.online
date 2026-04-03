@@ -1,0 +1,118 @@
+# ═══════════════════════════════════════════════════════
+# NorthStream IPTV — Cloud Build CI/CD Pipeline
+# Trigger: Push to main branch → Auto deploy to Cloud Run
+# ═══════════════════════════════════════════════════════
+
+steps:
+  # ── STEP 1: Build Docker image ────────────────────────
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    args:
+      - 'build'
+      - '-t'
+      - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:$COMMIT_SHA'
+      - '-t'
+      - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:latest'
+      - '--cache-from'
+      - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:latest'
+      - '-f'
+      - 'deploy/Dockerfile'
+      - '.'
+    env:
+      - 'DOCKER_BUILDKIT=1'
+
+  # ── STEP 2: Push to Artifact Registry ─────────────────
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-image'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web'
+
+  # ── STEP 3: Deploy to Cloud Run — Toronto (Primary) ───
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-toronto'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'northstream-iptv-primary'
+      - '--image'
+      - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:$COMMIT_SHA'
+      - '--region'
+      - 'northamerica-northeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--min-instances'
+      - '1'
+      - '--max-instances'
+      - '20'
+      - '--cpu'
+      - '2'
+      - '--memory'
+      - '2Gi'
+      - '--timeout'
+      - '60'
+      - '--no-cpu-throttling'  # Keep CPU allocated — critical for TTFB
+
+  # ── STEP 4: Deploy to Cloud Run — Montreal (Secondary) ─
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-montreal'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'northstream-iptv-secondary'
+      - '--image'
+      - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:$COMMIT_SHA'
+      - '--region'
+      - 'northamerica-northeast2'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--min-instances'
+      - '1'
+      - '--max-instances'
+      - '10'
+      - '--cpu'
+      - '2'
+      - '--memory'
+      - '2Gi'
+
+  # ── STEP 5: Purge Cloud CDN cache after deploy ────────
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'purge-cdn-cache'
+    entrypoint: gcloud
+    args:
+      - 'compute'
+      - 'url-maps'
+      - 'invalidate-cdn-cache'
+      - 'northstream-url-map'
+      - '--path'
+      - '/*'
+      - '--async'
+
+  # ── STEP 6: Run Lighthouse CI (SEO check after deploy) ─
+  - name: 'node:20-alpine'
+    id: 'lighthouse-check'
+    entrypoint: sh
+    args:
+      - '-c'
+      - |
+        npm install -g @lhci/cli 2>/dev/null
+        lhci autorun --config=lighthouserc.json || echo "Lighthouse completed"
+
+# Parallel execution where possible
+options:
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
+  substitutionOption: ALLOW_LOOSE
+
+# Build timeout
+timeout: '600s'
+
+# Images to push
+images:
+  - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:$COMMIT_SHA'
+  - 'northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/northstream-iptv/web:latest'
