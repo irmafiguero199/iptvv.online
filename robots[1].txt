@@ -99,9 +99,9 @@ Disallow: /*.json$
 Disallow: /cdn-cgi/
 
 # ── SITEMAPS ────────────────────────────────────────────
-Sitemap: https://northstreamiptv.ca/sitemap.xml
-Sitemap: https://northstreamiptv.ca/sitemap-posts.xml
-Sitemap: https://northstreamiptv.ca/sitemap-pages.xml
+Sitemap: https://iptvv.online/sitemap.xml
+Sitemap: https://iptvv.online/sitemap-posts.xml
+Sitemap: https://iptvv.online/sitemap-pages.xml
 
 # Host
-Host: https://northstreamiptv.ca
+Host: https://iptvv.online
