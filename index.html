@@ -653,6 +653,20 @@ h1 .outline {
   .cta-btns{flex-direction:column;align-items:center}
 }
 @media(max-width:480px){ h1{font-size:44px} .hero-btns{flex-direction:column} .hero-btns .btn{width:100%;justify-content:center} }
+
+
+
+
+.logo-text .dot{color:#00e5ff}
+
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#00e5ff,#0066cc);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden}
+.logo-icon::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.15))}
+.logo-icon svg{width:20px;height:20px;fill:#fff;position:relative;z-index:1}
+.logo-words{line-height:1}
+.logo-name{font-family:'Bebas Neue',cursive;font-size:24px;letter-spacing:.04em;color:#fff;line-height:1}
+.logo-name span{color:#00e5ff}
+.logo-sub{font-size:9px;font-weight:700;letter-spacing:.16em;color:rgba(255,255,255,.35);text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-top:1px}
 </style>
 </head>
 <body>
@@ -668,9 +682,14 @@ h1 .outline {
   <div class="container">
     <div class="nav-inner">
       <a href="/index.html" class="nav-logo">
-        <span class="logo-live"></span>
-        iptv<span>v</span>.online
-      </a>
+  <div class="logo-icon">
+    <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-10-3.27V8.27L15.45 12 11 13.73z"/></svg>
+  </div>
+  <div class="logo-words">
+    <div class="logo-name">IPTV<span>V</span></div>
+    <div class="logo-sub">· CANADA · ONLINE ·</div>
+  </div>
+</a>
       <div class="nav-links">
         <a href="/channels.html">Channels</a>
         <a href="/pricing.html">Pricing</a>
