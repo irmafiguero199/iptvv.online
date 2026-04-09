@@ -700,6 +700,14 @@ h1 .outline {
   .hero-visual{max-width:100%}
 }
 
+
+.ch-grid-section{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.ch-card2{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 16px;text-align:center;transition:.2s;cursor:default}
+.ch-card2:hover{background:rgba(0,229,255,.08);border-color:rgba(0,229,255,.3)}
+.ch-icon2{font-size:28px;margin-bottom:8px;line-height:1}
+.ch-name2{font-size:13px;font-weight:700;letter-spacing:.04em;color:#fff}
+.ch-live2{font-size:10px;color:#ff1744;letter-spacing:.07em;margin-top:4px;font-weight:700}
+@media(max-width:640px){.ch-grid-section{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -818,7 +826,26 @@ h1 .outline {
     <span class="tick-item"><span class="tick-dot"></span> NFL Network · RedZone</span>
     <span class="tick-item"><span class="tick-dot"></span> NBA TV Canada</span>
   </div>
+
+<!-- CHANNEL GRID SECTION -->
+<section style="padding:52px 0;background:var(--bg2)">
+<div class="container">
+  <div class="label">Live Now on iptvv.online</div>
+  <h2 class="sh2">Watch Live <span>Canadian Channels</span></h2>
+  <p class="ssub">All major Canadian and international channels included in every plan.</p>
+  <div class="ch-grid-section">
+    <div class="ch-card2"><div class="ch-icon2">🏒</div><div class="ch-name2">TSN 1-5</div><div class="ch-live2">● LIVE NHL</div></div>
+    <div class="ch-card2"><div class="ch-icon2">🏈</div><div class="ch-name2">Sportsnet</div><div class="ch-live2">● LIVE</div></div>
+    <div class="ch-card2"><div class="ch-icon2">⚽</div><div class="ch-name2">RDS</div><div class="ch-live2">● EN DIRECT</div></div>
+    <div class="ch-card2"><div class="ch-icon2">📺</div><div class="ch-name2">CBC / CTV</div><div class="ch-live2">● HD</div></div>
+    <div class="ch-card2"><div class="ch-icon2">🥊</div><div class="ch-name2">ESPN</div><div class="ch-live2">● LIVE</div></div>
+    <div class="ch-card2"><div class="ch-icon2">🏀</div><div class="ch-name2">NBA TV</div><div class="ch-live2">● LIVE</div></div>
+    <div class="ch-card2"><div class="ch-icon2">🏆</div><div class="ch-name2">Sky Sports</div><div class="ch-live2">● LIVE</div></div>
+    <div class="ch-card2"><div class="ch-icon2">🎬</div><div class="ch-name2">HBO / Netflix+</div><div class="ch-live2">● VOD</div></div>
+  </div>
 </div>
+</section>
+
 
 <!-- TRUST -->
 <section class="sp-sm" style="background:rgba(0,229,255,.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
