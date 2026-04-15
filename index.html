@@ -27,6 +27,33 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://iptvv.online/#website",
+      "name": "IPTV Canada — iptvv.online",
+      "url": "https://iptvv.online",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://iptvv.online/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://iptvv.online/#organization",
+      "name": "IPTV Canada — iptvv.online",
+      "url": "https://iptvv.online",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iptvv.online/favicon.png"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+212776056268",
+        "contactType": "customer support",
+        "availableLanguage": ["English", "French"]
+      }
+    },
+    {
       "@type": "Product",
       "name": "iptvv.online Canada IPTV Subscription",
       "description": "Best IPTV service in Canada. 25,000+ live channels, 4K streaming, CBC, CTV, TSN, RDS from $12.99 CAD/month.",
