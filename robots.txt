@@ -100,8 +100,6 @@ Disallow: /cdn-cgi/
 
 # ── SITEMAPS ────────────────────────────────────────────
 Sitemap: https://iptvv.online/sitemap.xml
-Sitemap: https://iptvv.online/sitemap-posts.xml
-Sitemap: https://iptvv.online/sitemap-pages.xml
 
 # Host
 Host: https://iptvv.online
