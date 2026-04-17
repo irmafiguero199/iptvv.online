@@ -87,6 +87,7 @@ Disallow: /
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /checkout.html
 Disallow: /checkout/
 Disallow: /account/
 Disallow: /api/
